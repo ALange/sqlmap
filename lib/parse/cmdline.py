@@ -582,6 +582,9 @@ def cmdLineParser(argv=None):
         filesystem.add_argument("--file-read-prefix", dest="fileReadPrefix",
             help="Known prefix (e.g. file header) for '--file-read' to speed up data retrieval")
 
+        filesystem.add_argument("--file-read-skip", dest="fileReadSkip", type=int,
+            help="Number of file bytes to skip at the beginning for '--file-read'")
+
         filesystem.add_argument("--file-write", dest="fileWrite",
             help="Write a local file on the back-end DBMS file system")
 

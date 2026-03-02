@@ -182,6 +182,7 @@ optDict = {
     "File system": {
         "fileRead": "string",
         "fileReadPrefix": "string",
+        "fileReadSkip": "integer",
         "fileWrite": "string",
         "fileDest": "string",
     },

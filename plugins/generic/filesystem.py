@@ -225,6 +225,10 @@ class Filesystem(object):
             if conf.fileReadPrefix:
                 kb.hintValue = getUnicode(encodeHex(conf.fileReadPrefix, binary=False)).upper()
 
+            savedFirstChar = conf.get("firstChar")
+            if conf.fileReadSkip:
+                conf.firstChar = conf.fileReadSkip + 1
+
             if conf.direct or isStackingAvailable():
                 if isStackingAvailable():
                     debugMsg = "going to try to read the file with stacked query SQL "
@@ -247,6 +251,9 @@ class Filesystem(object):
                 fileContent = None
 
             kb.fileReadMode = False
+
+            if conf.fileReadSkip:
+                conf.firstChar = savedFirstChar
 
             if conf.fileReadPrefix:
                 kb.hintValue = ""
