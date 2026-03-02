@@ -585,6 +585,9 @@ def cmdLineParser(argv=None):
         filesystem.add_argument("--file-read-skip", dest="fileReadSkip", type=int,
             help="Number of file bytes to skip at the beginning for '--file-read'")
 
+        filesystem.add_argument("--fresh-file", dest="freshFile", action="store_true",
+            help="Ignore previously saved '--file-read' data and start fresh")
+
         filesystem.add_argument("--file-write", dest="fileWrite",
             help="Write a local file on the back-end DBMS file system")
 
