@@ -183,6 +183,7 @@ optDict = {
         "fileRead": "string",
         "fileReadPrefix": "string",
         "fileReadSkip": "integer",
+        "freshFile": "boolean",
         "fileWrite": "string",
         "fileDest": "string",
     },
