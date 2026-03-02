@@ -222,6 +222,9 @@ class Filesystem(object):
             fileContent = None
             kb.fileReadMode = True
 
+            if conf.fileReadPrefix:
+                kb.hintValue = getUnicode(encodeHex(conf.fileReadPrefix, binary=False)).upper()
+
             if conf.direct or isStackingAvailable():
                 if isStackingAvailable():
                     debugMsg = "going to try to read the file with stacked query SQL "
@@ -244,6 +247,9 @@ class Filesystem(object):
                 fileContent = None
 
             kb.fileReadMode = False
+
+            if conf.fileReadPrefix:
+                kb.hintValue = ""
 
             if (isNoneValue(fileContent) or isNullValue(fileContent)) and not Backend.isDbms(DBMS.PGSQL):
                 self.cleanup(onlyFileTbl=True)
