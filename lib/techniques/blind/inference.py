@@ -56,6 +56,7 @@ from lib.core.settings import PAYLOAD_DELIMITER
 from lib.core.settings import RANDOM_INTEGER_MARKER
 from lib.core.settings import VALID_TIME_CHARS_RUN_THRESHOLD
 from lib.core.threads import getCurrentThreadData
+from lib.core.threads import getCurrentThreadName
 from lib.core.threads import runThreads
 from lib.core.unescaper import unescaper
 from lib.request.connect import Connect as Request
@@ -516,6 +517,12 @@ def bisection(payload, expression, length=None, charsetType=None, firstChar=None
             try:
                 def blindThread():
                     threadData = getCurrentThreadData()
+
+                    if timeBasedCompare:
+                        try:
+                            time.sleep(int(getCurrentThreadName()) * conf.timeSec / numThreads)
+                        except (ValueError, TypeError, ZeroDivisionError):
+                            pass
 
                     while kb.threadContinue:
                         with kb.locks.index:
