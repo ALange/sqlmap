@@ -1211,6 +1211,8 @@ def _setHTTPHandlers():
                 if conf.proxyCred:
                     # Reference: http://stackoverflow.com/questions/34079/how-to-specify-an-authenticated-proxy-for-a-python-http-connection
                     proxyString = "%s@" % conf.proxyCred
+                elif username and password:
+                    proxyString = "%s:%s@" % (username, password)
                 else:
                     proxyString = ""
 
@@ -2506,9 +2508,12 @@ def _setProxyList():
         return
 
     conf.proxyList = []
-    for match in re.finditer(r"(?i)((http[^:]*|socks[^:]*)://)?([\w\-.]+):(\d+)", readCachedFileContent(conf.proxyFile)):
-        _, type_, address, port = match.groups()
-        conf.proxyList.append("%s://%s:%s" % (type_ or "http", address, port))
+    for match in re.finditer(r"(?i)((http[^\s:]*|socks[^\s:]*)://)?(([^:@\s]+):([^@\s]+)@)?([\w\-.]+):(\d+)", readCachedFileContent(conf.proxyFile)):
+        _, type_, credentials, username, password, address, port = match.groups()
+        if username and password:
+            conf.proxyList.append("%s://%s:%s@%s:%s" % (type_ or "http", username, password, address, port))
+        else:
+            conf.proxyList.append("%s://%s:%s" % (type_ or "http", address, port))
 
 def _setTorProxySettings():
     if not conf.tor:

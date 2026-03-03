@@ -229,7 +229,7 @@ def cmdLineParser(argv=None):
             help="Proxy authentication credentials (name:password)")
 
         request.add_argument("--proxy-file", dest="proxyFile",
-            help="Load proxy list from a file")
+            help="Load proxy list from a file (supported format: '[type://][user:pass@]host:port')")
 
         request.add_argument("--proxy-freq", dest="proxyFreq", type=int,
             help="Requests between change of proxy from a given list")
